@@ -20,8 +20,8 @@
     <properties>
         <maven.build.timestamp.format>yyyyMMdd-HHmm</maven.build.timestamp.format>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <hadoop.version>2.7.1</hadoop.version>
-        <hadoop.mr1.version>2.7.1</hadoop.mr1.version>
+        <hadoop.version>2.7.3.2.6.3.0-235</hadoop.version>
+        <hadoop.mr1.version>2.7.3.2.6.3.0-235</hadoop.mr1.version>
     </properties>
 
     <scm>
@@ -77,7 +77,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>3.2.1</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
