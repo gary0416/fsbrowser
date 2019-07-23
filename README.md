@@ -5,6 +5,20 @@
 
 ## Added
 - copy path to clipboard
+- hotkeys
+| hotkey | function |
+| :--- | :---: |
+| ctrl+shift+c | Copy path to clipboard |
+| ctrl+u | Copy from local(upload) |
+| ctrl+d | Copy to local(download) |
+| ctrl+x | Cut |
+| ctrl+c | Copy |
+| ctrl+v | Past |
+| ctrl+n | Create directory |
+| delete | Move to trash |
+| shift+delete | Delete permanently |
+| F5 | Refresh current view |
+| ctrl+g | Go to directory |
 
 # FSBrowser
 

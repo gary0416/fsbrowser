@@ -73,7 +73,7 @@ public class FileSystemActions {
 
     public FileAction copyFromLocalAction() {
         return FileAction.builder(this::doCopyFromLocal)
-                .name("Copy from local")
+                .name("Copy from local(Ctrl+U)")
                 .icon("copy-from-local")
                 .get();
     }
@@ -90,7 +90,7 @@ public class FileSystemActions {
 
     public FileAction copyToLocalAction() {
         return FileAction.builder(this::doCopyToLocal)
-                .name("Copy to local")
+                .name("Copy to local(Ctrl+D)")
                 .icon("copy-to-local")
                 .readOnly(true)
                 .predicates(this::notEmptyPredicate)
@@ -112,14 +112,14 @@ public class FileSystemActions {
 
     public FileAction removeAction() {
         return FileAction.builder((items) -> doRemove(items, true))
-                .name("Delete permanently")
+                .name("Delete permanently(Shift+Delete)")
                 .icon("item-remove")
                 .get();
     }
 
     public FileAction moveToTrashAction() {
         return FileAction.builder((items) -> doRemove(items, false))
-                .name("Move to trash")
+                .name("Move to trash(Delete)")
                 .icon("item-bin")
                 .get();
     }
@@ -142,7 +142,7 @@ public class FileSystemActions {
 
     public FileAction mkdirAction() {
         return FileAction.builder(this::doMkdir)
-                .name("Create directory (mkdir)")
+                .name("Create directory (mkdir) (Ctrl+N)")
                 .icon("folder-new")
                 .get();
     }
@@ -182,7 +182,7 @@ public class FileSystemActions {
 
     public FileAction copyAction() {
         return FileAction.builder(this::doCopy)
-                .name("Copy")
+                .name("Copy(Ctrl+C)")
                 .icon("copy")
                 .predicates(this::notEmptyPredicate)
                 .get();
@@ -199,7 +199,7 @@ public class FileSystemActions {
 
     public FileAction cutAction() {
         return FileAction.builder(this::doCut)
-                .name("Cut")
+                .name("Cut(Ctrl+X)")
                 .icon("cut")
                 .predicates(this::notEmptyPredicate)
                 .get();
@@ -216,7 +216,7 @@ public class FileSystemActions {
 
     public FileAction pasteAction() {
         return FileAction.builder(this::doPaste)
-                .name("Paste")
+                .name("Paste(Ctrl+V)")
                 .icon("paste")
                 .get();
     }
@@ -269,7 +269,7 @@ public class FileSystemActions {
 
     public FileAction gotoAction() {
         return FileAction.builder(this::doGoto)
-                .name("Go to directory")
+                .name("Go to directory(Ctrl+G)")
                 .icon("goto")
                 .readOnly(true)
                 .get();
@@ -561,7 +561,7 @@ public class FileSystemActions {
      */
     FileAction copyPathToClipboardAction() {
         return FileAction.builder(this::doCopyPathToClipboard)
-                .name("Copy path to clipboard")
+                .name("Copy path to clipboard(Ctrl+Shift+C)")
                 .icon("copy")
                 .predicates(this::notEmptyPredicate)
                 .get();

@@ -12,8 +12,8 @@ import com.alee.laf.scroll.WebScrollPane;
 import com.alee.laf.text.WebTextField;
 import com.alee.laf.toolbar.ToolbarStyle;
 import com.alee.laf.toolbar.WebToolBar;
+import com.alee.managers.hotkey.HotkeyData;
 import com.alee.utils.SwingUtils;
-import com.alee.utils.SystemUtils;
 import com.google.common.util.concurrent.ListeningExecutorService;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
@@ -246,30 +246,62 @@ public class FileSystemPanel extends LoadingOverlay implements Closeable {
         });
     }
 
+    /**
+     * 添加按钮并绑定快捷键
+     * @param result
+     * @param fileAction
+     * @param hotkeyData
+     * @author gary
+     * @date 2019/07/23
+     */
+    private void addButtonAndBindHotkey(WebToolBar result, FileAction fileAction, HotkeyData hotkeyData) {
+        WebButton toolButton = createToolButton(fileAction);
+        toolButton.addHotkey(hotkeyData);
+        result.add(toolButton);
+    }
+
     private WebToolBar createToolBar() {
         WebToolBar result = new WebToolBar();
         result.setToolbarStyle(ToolbarStyle.attached);
         result.setFloatable(false);
-        result.add(createToolButton(this.actions.copyPathToClipboardAction()));
+
+        addButtonAndBindHotkey(result, this.actions.copyPathToClipboardAction(),
+                new HotkeyData(true, false, true, KeyEvent.VK_C));
+
         result.addSeparator();
-        result.add(createToolButton(this.actions.copyFromLocalAction()));
-        result.add(createToolButton(this.actions.copyToLocalAction()));
-        result.add(createToolButton(this.actions.cutAction()));
-        result.add(createToolButton(this.actions.copyAction()));
-        result.add(createToolButton(this.actions.pasteAction()));
+
+        addButtonAndBindHotkey(result, this.actions.copyFromLocalAction(),
+                new HotkeyData(true, false, false, KeyEvent.VK_U));
+        addButtonAndBindHotkey(result, this.actions.copyToLocalAction(),
+                new HotkeyData(true, false, false, KeyEvent.VK_D));
+        addButtonAndBindHotkey(result, this.actions.cutAction(),
+                new HotkeyData(true, false, false, KeyEvent.VK_X));
+        addButtonAndBindHotkey(result, this.actions.copyAction(),
+                new HotkeyData(true, false, false, KeyEvent.VK_C));
+        addButtonAndBindHotkey(result, this.actions.pasteAction(),
+                new HotkeyData(true, false, false, KeyEvent.VK_V));
         result.add(createToolButton(this.actions.archiveAction()));
-        result.add(createToolButton(this.actions.mkdirAction()));
+        addButtonAndBindHotkey(result, this.actions.mkdirAction(),
+                new HotkeyData(true, false, false, KeyEvent.VK_N));
         result.add(createToolButton(this.actions.touchAction()));
-        result.add(createToolButton(this.actions.moveToTrashAction()));
-        result.add(createToolButton(this.actions.removeAction()));
+        addButtonAndBindHotkey(result, this.actions.moveToTrashAction(),
+                new HotkeyData(KeyEvent.VK_DELETE));
+        addButtonAndBindHotkey(result, this.actions.removeAction(),
+                new HotkeyData(false, false, true, KeyEvent.VK_DELETE));
         result.add(createToolButton(this.actions.chmodAction()));
         result.add(createToolButton(this.actions.chownAction()));
+
         result.addSeparator();
+
         result.add(createToolButton(this.actions.previewFileAction()));
         result.add(createToolButton(this.actions.fsckAction()));
+
         result.addSeparator();
-        result.add(createToolButton(this.actions.refreshAction()));
-        result.add(createToolButton(this.actions.gotoAction()));
+
+        addButtonAndBindHotkey(result, this.actions.refreshAction(),
+                new HotkeyData(KeyEvent.VK_F5));
+        addButtonAndBindHotkey(result, this.actions.gotoAction(),
+                new HotkeyData(true, false, false, KeyEvent.VK_G));
         result.add(createToolButton(this.actions.emptyTrashAction()));
         result.add(createToolButton(this.actions.cleanupAction()));
         result.addToEnd(this.filter);

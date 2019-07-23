@@ -6,7 +6,7 @@
 
     <groupId>pl.sdadas.fsbrowser</groupId>
     <artifactId>fsbrowser</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
 
     <repositories>
         <repository>
