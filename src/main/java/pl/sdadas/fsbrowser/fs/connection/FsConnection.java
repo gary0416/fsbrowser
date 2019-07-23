@@ -12,6 +12,8 @@ import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.security.AccessControlException;
 import org.apache.hadoop.security.UserGroupInformation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.hadoop.fs.DistCp;
 import org.springframework.data.hadoop.fs.FsShell;
 import pl.sdadas.fsbrowser.exception.FsAccessException;
@@ -31,6 +33,8 @@ import java.util.stream.Collectors;
  * @author Sławomir Dadas
  */
 public class FsConnection implements Closeable {
+
+    private static Logger logger = LoggerFactory.getLogger(FsConnection.class);
 
     private final ConnectionConfig config;
 
@@ -78,6 +82,10 @@ public class FsConnection implements Closeable {
             ugi.doAs((PrivilegedExceptionAction<Void>) () -> {
                 this.fs = this.createSharedFileSystem(configuration);
                 this.shell = new FsShell(configuration, fs);
+
+                // prevent MainWindow close directly
+                Runtime.getRuntime().addShutdownHook(new Thread(() -> close()));
+
                 return null;
             });
         } catch (IOException | InterruptedException e) {
@@ -269,7 +277,8 @@ public class FsConnection implements Closeable {
     }
 
     @Override
-    public void close() throws IOException {
+    public void close() {
+        logger.warn("closing {}@{}", getUser(), getConfig().get("fs.defaultFS", "unknown"));
         IOUtils.closeQuietly(fs);
         IOUtils.closeQuietly(shell);
     }
