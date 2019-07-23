@@ -21,7 +21,7 @@ public class MainWindow extends WebFrame {
     }
 
     private void initView() {
-        setMinimumSize(new Dimension(800, 600));
+        setMinimumSize(new Dimension(1024, 600));
         setContentPane(this.panel);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("FSBrowser");
