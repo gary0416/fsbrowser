@@ -3,6 +3,9 @@
 ## Fixed
 - directly close MainWindow will not close fileSystem. 
 
+## Added
+- copy path to clipboard
+
 # FSBrowser
 
 FSBrowser is a desktop GUI client for Hadoop Distributed File System. 

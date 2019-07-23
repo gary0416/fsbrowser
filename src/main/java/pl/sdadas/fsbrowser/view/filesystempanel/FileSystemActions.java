@@ -30,6 +30,9 @@ import pl.sdadas.fsbrowser.view.mainwindow.MainPanel;
 import pl.sdadas.fsbrowser.view.props.PropertiesDialog;
 
 import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Transferable;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
@@ -546,5 +549,47 @@ public class FileSystemActions {
 
     private boolean notEmptyPredicate(List<FileItem> selection) {
         return selection != null && !selection.isEmpty();
+    }
+
+
+    /**
+     * 复制到剪贴板
+     *
+     * @return
+     * @author gary
+     * @date 2019/07/23
+     */
+    FileAction copyPathToClipboardAction() {
+        return FileAction.builder(this::doCopyPathToClipboard)
+                .name("Copy path to clipboard")
+                .icon("copy")
+                .predicates(this::notEmptyPredicate)
+                .get();
+    }
+
+    /**
+     * 执行复制到剪贴板
+     *
+     * @param selection
+     * @author gary
+     * @date 2019/07/23
+     */
+    void doCopyPathToClipboard(List<FileItem> selection) {
+        ViewUtils.handleErrors(parent, () -> {
+            Path[] paths = getItemPaths(selection);
+            if (paths.length == 0) {
+                return;
+            }
+            StringBuilder sb = new StringBuilder();
+            for (Path path : paths) {
+                if (sb.length() != 0) {
+                    sb.append(",");
+                }
+                sb.append(path.toUri().getPath());
+            }
+            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+            Transferable trans = new StringSelection(sb.toString());
+            clipboard.setContents(trans, null);
+        });
     }
 }

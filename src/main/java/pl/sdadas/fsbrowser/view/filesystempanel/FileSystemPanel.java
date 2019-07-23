@@ -250,6 +250,8 @@ public class FileSystemPanel extends LoadingOverlay implements Closeable {
         WebToolBar result = new WebToolBar();
         result.setToolbarStyle(ToolbarStyle.attached);
         result.setFloatable(false);
+        result.add(createToolButton(this.actions.copyPathToClipboardAction()));
+        result.addSeparator();
         result.add(createToolButton(this.actions.copyFromLocalAction()));
         result.add(createToolButton(this.actions.copyToLocalAction()));
         result.add(createToolButton(this.actions.cutAction()));
@@ -285,6 +287,7 @@ public class FileSystemPanel extends LoadingOverlay implements Closeable {
 
     private WebPopupMenu createFilePopup() {
         WebPopupMenu result = new WebPopupMenu();
+        result.add(createMenuItem(this.actions.copyPathToClipboardAction()));
         result.add(createMenuItem(this.actions.copyToLocalAction()));
         result.add(createMenuItem(this.actions.cutAction()));
         result.add(createMenuItem(this.actions.copyAction()));
