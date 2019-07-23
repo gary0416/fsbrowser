@@ -25,8 +25,8 @@
     </properties>
 
     <scm>
-        <url>https://github.com/sdadas/fsbrowser/</url>
-        <connection>scm:git:git://github.com/sdadas/fsbrowser/</connection>
+        <url>https://github.com/gary0416/fsbrowser/</url>
+        <connection>scm:git:git://github.com/gary0416/fsbrowser/</connection>
     </scm>
 
     <build>
