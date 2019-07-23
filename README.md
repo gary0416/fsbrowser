@@ -6,6 +6,7 @@
 ## Added
 - copy path to clipboard
 - hotkeys
+
 | hotkey | function |
 | :--- | :---: |
 | ctrl+shift+c | Copy path to clipboard |
@@ -19,6 +20,7 @@
 | shift+delete | Delete permanently |
 | F5 | Refresh current view |
 | ctrl+g | Go to directory |
+
 
 # FSBrowser
 
