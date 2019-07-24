@@ -361,6 +361,10 @@ public class FileSystemPanel extends LoadingOverlay implements Closeable {
     }
 
     private void invokeAsync(FileAction action) {
+        if (!isShowing()) {
+            return;
+        }
+
         if(action.supportsProgress()) {
             Progress progress = new Progress();
             asyncAction(() -> action.run(browser.selectedItems(), progress), progress);
