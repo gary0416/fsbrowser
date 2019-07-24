@@ -2,11 +2,13 @@ package pl.sdadas.fsbrowser.view.mainwindow;
 
 import com.alee.laf.button.WebButton;
 import com.alee.laf.rootpane.WebFrame;
-import pl.sdadas.fsbrowser.app.clipboard.ClipboardHelper;
-import pl.sdadas.fsbrowser.app.config.AppConfigProvider;
+import pl.sdadas.fsbrowser.Version;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
+import java.net.URL;
 
 /**
  * @author Sławomir Dadas
@@ -24,8 +26,17 @@ public class MainWindow extends WebFrame {
         setMinimumSize(new Dimension(1024, 600));
         setContentPane(this.panel);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setTitle("FSBrowser");
+        setTitle("FSBrowser v" + Version.getVersion() + "-" + Version.getRevision());
         setLocationRelativeTo(null);
+
+        URL iconRes = MainWindow.class.getClassLoader().getResource("icons/fsbrowser.png");
+        if (iconRes != null) {
+            try {
+                setIconImage(ImageIO.read(iconRes));
+            } catch (IOException ignore) {
+            }
+        }
+
         pack();
     }
 

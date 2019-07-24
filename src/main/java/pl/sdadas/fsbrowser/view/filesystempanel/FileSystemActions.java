@@ -132,7 +132,7 @@ public class FileSystemActions {
             String message = "<html>Do you want to " + String.format(format, getPathsName(paths));
             Window window = SwingUtils.getWindowAncestor(parent);
             int result = WebOptionPane.showConfirmDialog(window, message, "Confirm",
-                    WebOptionPane.YES_NO_OPTION, WebOptionPane.QUESTION_MESSAGE);
+                    WebOptionPane.YES_NO_OPTION, skipTrash ? WebOptionPane.WARNING_MESSAGE : WebOptionPane.QUESTION_MESSAGE);
             if(result == WebOptionPane.YES_OPTION) {
                 parent.getConnection().remove(paths, skipTrash);
                 parent.getModel().reloadView();

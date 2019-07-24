@@ -21,6 +21,8 @@
 | F5 | Refresh current view |
 | ctrl+g | Go to directory |
 
+## Changed
+- UI
 
 # FSBrowser
 

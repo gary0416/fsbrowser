@@ -168,12 +168,12 @@ public class FileSystemTableModel extends AbstractTableModel {
         return new FileBrowserColumn[] {
             FileBrowserColumn.create("", Icon.class, FileItem::getIcon).minWidth(20).maxWidth(20),
             FileBrowserColumn.create("Name", FileItem::getName).sortable(true),
-            FileBrowserColumn.create("Group", FileItem::getGroup).sortable(true),
-            FileBrowserColumn.create("Owner", FileItem::getOwner).sortable(true),
+            FileBrowserColumn.create("Group", FileItem::getGroup).minWidth(90).maxWidth(120).sortable(true),
+            FileBrowserColumn.create("Owner", FileItem::getOwner).minWidth(90).maxWidth(120).sortable(true),
             FileBrowserColumn.create("Permissions", FileItem::getPermissions).minWidth(90).maxWidth(90),
             FileBrowserColumn.create("Modified", FileItem.FileTimestamp.class, FileItem::getModificationTime)
-                    .minWidth(130).sortable(true),
-            FileBrowserColumn.create("Size", FileItem.FileSize.class, FileItem::getSize).sortable(true),
+                    .minWidth(150).maxWidth(150).sortable(true),
+            FileBrowserColumn.create("Size", FileItem.FileSize.class, FileItem::getSize).minWidth(110).maxWidth(150).sortable(true),
         };
     }
 

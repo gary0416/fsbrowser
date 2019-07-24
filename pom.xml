@@ -6,7 +6,7 @@
 
     <groupId>pl.sdadas.fsbrowser</groupId>
     <artifactId>fsbrowser</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
 
     <repositories>
         <repository>
@@ -105,7 +105,7 @@
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer">
                                 </transformer>
                             </transformers>
-                            <finalName>fsbrowser</finalName>
+                            <finalName>fsbrowser-${project.version}-${buildNumber}</finalName>
                         </configuration>
                     </execution>
                 </executions>

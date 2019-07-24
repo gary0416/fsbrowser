@@ -113,7 +113,7 @@ public class FileItem {
 
         @Override
         public String toString() {
-            return DateFormatUtils.format(timestamp, "dd-MM-yyyy HH:mm:ss");
+            return DateFormatUtils.format(timestamp, "yyyy-MM-dd HH:mm:ss");
         }
 
         @Override
