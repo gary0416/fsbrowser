@@ -280,6 +280,8 @@ public class FileSystemPanel extends LoadingOverlay implements Closeable {
                 new HotkeyData(true, false, false, KeyEvent.VK_C));
         addButtonAndBindHotkey(result, this.actions.pasteAction(),
                 new HotkeyData(true, false, false, KeyEvent.VK_V));
+        addButtonAndBindHotkey(result, this.actions.renameAction(),
+                new HotkeyData(KeyEvent.VK_F2));
         result.add(createToolButton(this.actions.archiveAction()));
         addButtonAndBindHotkey(result, this.actions.mkdirAction(),
                 new HotkeyData(true, false, false, KeyEvent.VK_N));

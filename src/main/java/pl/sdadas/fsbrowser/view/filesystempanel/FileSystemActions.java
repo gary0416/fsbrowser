@@ -370,7 +370,7 @@ public class FileSystemActions {
 
     public FileAction renameAction() {
         return FileAction.builder(this::doRename)
-                .name("Rename")
+                .name("Rename(F2)")
                 .icon("file-rename")
                 .predicates(this::singlePredicate)
                 .get();

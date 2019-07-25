@@ -20,6 +20,9 @@
 | shift+delete | Delete permanently |
 | F5 | Refresh current view |
 | ctrl+g | Go to directory |
+| F2 | rename |
+
+- add rename button
 
 ## Changed
 - UI
