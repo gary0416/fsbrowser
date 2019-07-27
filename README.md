@@ -23,9 +23,11 @@
 | F2 | rename |
 
 - add rename button
+- duplicate connection
 
 ## Changed
 - UI
+- allow edit connection without rename 
 
 # FSBrowser
 

@@ -10,4 +10,5 @@
 *.versionsBackup
 
 # All target directories
-*/target/**
+target
+/dependency-reduced-pom.xml

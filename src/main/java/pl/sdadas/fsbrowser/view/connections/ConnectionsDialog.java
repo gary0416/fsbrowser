@@ -7,6 +7,7 @@ import com.alee.laf.list.WebListModel;
 import com.alee.laf.panel.WebPanel;
 import com.alee.laf.rootpane.WebDialog;
 import com.alee.laf.scroll.WebScrollPane;
+import org.springframework.cglib.beans.BeanCopier;
 import pl.sdadas.fsbrowser.app.config.AppConfigProvider;
 import pl.sdadas.fsbrowser.app.config.AppConnection;
 import pl.sdadas.fsbrowser.utils.IconFactory;
@@ -46,7 +47,7 @@ public class ConnectionsDialog extends WebDialog {
         this.model = createListModel();
         this.list = createList();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setMinimumSize(new Dimension(350, 200));
+        setMinimumSize(new Dimension(450, 200));
         setTitle("Connections");
         setResizable(false);
         setModal(false);
@@ -89,11 +90,32 @@ public class ConnectionsDialog extends WebDialog {
 
     private WebPanel createButtonsPanel() {
         List<WebButton> buttons = new LinkedList<>();
+        buttons.add(createButton("Duplicate", "copy", this::duplicateConnection, 95));
         buttons.add(createButton("Edit", "edit-connection", this::editConnection));
         buttons.add(createButton("Remove", "remove-connection", this::removeConnection));
         buttons.add(createButton("Add", "add-connection", this::addConnection));
-        buttons.add(createButton("Connect", "connection", this::connect));
+        buttons.add(createButton("Connect", "connection", this::connect, 85));
         return ViewUtils.rightLeftPanel(85, buttons.toArray(new WebButton[buttons.size()]));
+    }
+
+    private void duplicateConnection() {
+        int idx = list.getSelectedIndex();
+        if(idx < 0) {
+            return;
+        }
+        List<AppConnection> connections = configProvider.getConfig().getConnections();
+        AppConnection connection = connections.get(idx);
+
+        BeanCopier beanCopier = BeanCopier.create(AppConnection.class, AppConnection.class, false);
+        AppConnection copy = new AppConnection();
+        beanCopier.copy(connection, copy, null);
+        copy.setName(connection.getName() + "(copy)");
+
+        connections.add(idx + 1, copy);
+
+        configProvider.writeConfig();
+        refreshModel();
+        list.setSelectedIndex(idx + 1);
     }
 
     private void connect() {
@@ -108,12 +130,16 @@ public class ConnectionsDialog extends WebDialog {
         fireOnConnect(connection);
     }
 
-    private WebButton createButton(String text, String icon, Runnable actionListener) {
+    private WebButton createButton(String text, String icon, Runnable actionListener, int width) {
         WebButton result = new WebButton(text, IconFactory.getIcon(icon));
         result.addActionListener((event) -> actionListener.run());
-        result.setPreferredWidth(80);
+        result.setPreferredWidth(width);
         result.setFontSize(11);
         return result;
+    }
+
+    private WebButton createButton(String text, String icon, Runnable actionListener) {
+        return createButton(text, icon, actionListener, 80);
     }
 
     private void removeConnection() {
@@ -138,13 +164,21 @@ public class ConnectionsDialog extends WebDialog {
     private void editConnection(AppConnection connection) {
         boolean adding = connection == null;
         AppConnection object = adding ? new AppConnection("hdfs", "hdfs@cluster") : connection;
-        EditConnectionDialog dialog = new EditConnectionDialog(object, this);
+        int idx = adding? -1 : list.getSelectedIndex();
+        EditConnectionDialog dialog = new EditConnectionDialog(object, this, idx);
         boolean result = dialog.showDialog();
         if(result) {
-            if(adding) configProvider.getConfig().getConnections().add(object);
+            if(adding) {
+                configProvider.getConfig().getConnections().add(object);
+            }
             configProvider.writeConfig();
         }
         refreshModel();
+
+        if (idx != -1) {
+            // is edit,restore selected status
+            list.setSelectedIndex(idx);
+        }
     }
 
     private void refreshModel() {

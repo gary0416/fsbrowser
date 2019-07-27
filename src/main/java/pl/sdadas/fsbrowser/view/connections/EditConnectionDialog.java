@@ -60,11 +60,14 @@ public class EditConnectionDialog extends WebDialog {
 
     private boolean success;
 
-    public EditConnectionDialog(AppConnection value, ConnectionsDialog owner) {
+    private int idx;
+
+    public EditConnectionDialog(AppConnection value, ConnectionsDialog owner, int idx) {
         super(owner);
         this.value = value;
         this.propertiesModel = new PropertyTableModel(value.getPropertiesMap());
         this.configProvider = owner.getConfigProvider();
+        this.idx = idx;
         initView();
         initListeners();
         initValues();
@@ -149,10 +152,14 @@ public class EditConnectionDialog extends WebDialog {
             errors.add("No hadoop configuration files provided.");
         }
 
-        Optional<AppConnection> matchesName = configProvider.getConfig().getConnections().stream()
-                .filter(conn -> StringUtils.equalsIgnoreCase(conn.getName(), nameValue)).findAny();
-        if(matchesName.isPresent()) {
-            errors.add(String.format("Connection %s already exists.", nameValue));
+        List<AppConnection> connections = configProvider.getConfig().getConnections();
+        for (int i = 0; i < connections.size(); i++) {
+            AppConnection conn = connections.get(i);
+            if (StringUtils.equalsIgnoreCase(conn.getName(), nameValue)
+                && i != idx) {
+                errors.add(String.format("Connection %s already exists.", nameValue));
+                break;
+            }
         }
 
         if(!errors.isEmpty()) {
@@ -160,6 +167,10 @@ public class EditConnectionDialog extends WebDialog {
         } else {
             value.setName(nameValue);
             value.setUser(userValue);
+            // is edit,replace conn
+            if (idx != -1) {
+                connections.set(idx, value);
+            }
             this.success = true;
             setVisible(false);
         }
