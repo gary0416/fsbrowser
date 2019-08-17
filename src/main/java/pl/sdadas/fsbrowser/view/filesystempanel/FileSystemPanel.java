@@ -5,6 +5,7 @@ import com.alee.extended.breadcrumb.WebBreadcrumbButton;
 import com.alee.extended.image.WebImage;
 import com.alee.extended.layout.VerticalFlowLayout;
 import com.alee.laf.button.WebButton;
+import com.alee.laf.label.WebLabel;
 import com.alee.laf.menu.WebMenuItem;
 import com.alee.laf.menu.WebPopupMenu;
 import com.alee.laf.panel.WebPanel;
@@ -36,6 +37,7 @@ import java.awt.event.*;
 import java.io.Closeable;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * @author Sławomir Dadas
@@ -142,6 +144,23 @@ public class FileSystemPanel extends LoadingOverlay implements Closeable {
             current = current.getParent();
         } while (current != null);
         this.breadcrumb.repaint();
+
+        updateStatistics();
+    }
+
+    private void updateStatistics() {
+        List<FileItem> children = getModel().getChildren();
+        int folderCount = 0;
+        int fileCount = 0;
+        for (FileItem fileItem : children) {
+            // don't forget: ".."
+            if (fileItem.isDirectory()) {
+                folderCount++;
+            } else if(fileItem.isFile()){
+                fileCount++;
+            }
+        }
+        updateStatisticsLabel(folderCount + " folders / " + fileCount + " files");
     }
 
     private WebTextField createFilter() {
@@ -260,6 +279,8 @@ public class FileSystemPanel extends LoadingOverlay implements Closeable {
         result.add(toolButton);
     }
 
+    private WebLabel statisticsLabel;
+
     private WebToolBar createToolBar() {
         WebToolBar result = new WebToolBar();
         result.setToolbarStyle(ToolbarStyle.attached);
@@ -306,8 +327,17 @@ public class FileSystemPanel extends LoadingOverlay implements Closeable {
                 new HotkeyData(true, false, false, KeyEvent.VK_G));
         result.add(createToolButton(this.actions.emptyTrashAction()));
         result.add(createToolButton(this.actions.cleanupAction()));
+
+        statisticsLabel = new WebLabel("");
+        statisticsLabel.setMargin(0, 0, 0, 20);
+        result.addToEnd(statisticsLabel);
+
         result.addToEnd(this.filter);
         return result;
+    }
+
+    public void updateStatisticsLabel(String content) {
+        statisticsLabel.setText(content);
     }
 
     private WebButton createToolButton(FileAction action) {

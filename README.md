@@ -24,6 +24,7 @@
 
 - add rename button
 - duplicate connection
+- count folder and file numbers
 
 ## Changed
 - UI

@@ -195,4 +195,9 @@ public class FileSystemTableModel extends AbstractTableModel {
     public FileItem getRow(int idx) {
         return this.children.get(idx);
     }
+
+    public List<FileItem> getChildren() {
+        return children;
+    }
+
 }
