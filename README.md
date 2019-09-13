@@ -28,7 +28,8 @@
 
 ## Changed
 - UI
-- allow edit connection without rename 
+- allow edit connection without rename
+- auto select user home dir in DirectoryChooser 
 
 # FSBrowser
 

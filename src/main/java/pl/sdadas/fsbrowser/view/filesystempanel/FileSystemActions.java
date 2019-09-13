@@ -519,6 +519,7 @@ public class FileSystemActions {
 
     private File selectDirectory() {
         WebDirectoryChooser chooser = new WebDirectoryChooser(SwingUtils.getWindowAncestor(parent));
+        chooser.setSelectedDirectory(new File(System.getProperty("user.home")));
         chooser.setVisible(true);
         if(chooser.getResult() == WebDirectoryChooser.OK_OPTION) {
             return chooser.getSelectedDirectory();
