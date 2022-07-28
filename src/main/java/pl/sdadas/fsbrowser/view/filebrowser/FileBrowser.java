@@ -34,7 +34,7 @@ public class FileBrowser extends WebTable {
     }
 
     private void init() {
-        setFont(new Font("宋体", Font.PLAIN, 14));
+        setFont(new Font("微软雅黑", Font.PLAIN, 14));
         setShowGrid(false);
         setDragEnabled(true);
         setDropMode(DropMode.INSERT);
