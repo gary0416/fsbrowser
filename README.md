@@ -25,6 +25,7 @@
 - add rename button
 - duplicate connection
 - count folder and file numbers
+- support chinese
 
 ## Changed
 - UI

@@ -69,7 +69,7 @@ public class FileContentDialog extends WebDialog {
         this.text.setLineWrap(true);
         this.text.setWrapStyleWord(false);
         this.text.setEditable(false);
-        this.text.setFont(new Font("Consolas", Font.PLAIN, 12));
+        this.text.setFont(new Font("宋体", Font.PLAIN, 12));
         this.statusLabel = new WebLabel("");
         this.statusBar = new WebStatusBar();
         this.statusBar.add(this.statusLabel);
